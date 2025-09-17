@@ -1,0 +1,51 @@
+import csv
+
+# File to store patient data
+filename = "patients.csv"
+
+# Function to add a patient
+def add_patient():
+    patient_id = input("Enter Patient ID: ")
+    name = input("Enter Name: ")
+    age = input("Enter Age: ")
+    gender = input("Enter Gender (M/F): ")
+    disease = input("Enter Disease/Condition: ")
+
+    # Save to CSV
+    with open(filename, "a", newline="") as file:
+        writer = csv.writer(file)
+        writer.writerow([patient_id, name, age, gender, disease])
+    print("Patient record added successfully!")
+
+# Function to view all patients
+def view_patients():
+    try:
+        with open(filename, "r") as file:
+            reader = csv.reader(file)
+            print("\n--- Patient Records ---")
+            for row in reader:
+                print(row)
+    except FileNotFoundError:
+        print(" No records found. Please add patients first.")
+
+# Main program loop
+def main():
+    print(" Patient Data Storage System")
+    while True:
+        print("\n1. Add Patient")
+        print("2. View Patients")
+        print("3. Exit")
+        choice = input("Enter your choice: ")
+
+        if choice == '1':
+            add_patient()
+        elif choice == '2':
+            view_patients()
+        elif choice == '3':
+            print("Exiting program... Goodbye!")
+            break
+        else:
+            print("Invalid choice, try again!")
+
+if __name__ == "__main__":
+    main()
